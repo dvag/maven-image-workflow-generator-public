@@ -21,7 +21,8 @@ jobs:
           
       - name: copy templates
         run: |
-          cp -R maven-image-workflow-generator/templates tmp
+          mkdir tmp
+          cp maven-image-workflow-generator/templates/* tmp
           
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
