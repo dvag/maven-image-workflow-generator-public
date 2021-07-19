@@ -20,7 +20,8 @@ jobs:
         shell: bash
         run: |
           if [ -d $tmpfolder ]; then
-           echo "tempfolder $tmpfolder must not exist";
+            echo "tempfolder $tmpfolder must not exist";
+            exit -1;
           fi;
       - name: get templates
         shell: bash
