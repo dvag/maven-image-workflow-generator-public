@@ -12,11 +12,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Run a one-line script
+      - name: get templates
         run: |
-          git clone --depth 1 --branch ${{env.version}}  https://$GITHUB_ACTOR:$GH_TOKEN@${{MAVEN_IMAGE_WORKFLOW_REPO}}
+          git clone --depth 1 --branch ${{env.version}}  https://$GITHUB_ACTOR:$TOKEN@$REPO
         env: 
-          GH_TOKEN: ${{secrets.WORKFLOW_PAT}}
+          TOKEN: ${{secrets.WORKFLOW_PAT}}
+          REPO: ${{secrets.MAVEN_IMAGE_WORKFLOW_REPO}}
+          
+      - name: copy templates
+        run: |
+          cp -R maven-image-workflow-generator/templates tmp
           
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
