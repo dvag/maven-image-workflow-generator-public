@@ -6,23 +6,36 @@ on:
 
 env:
   version: develop
+  tmpfolder: tmp-folder
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: get templates
+      - name: force error
         run: |
-          git clone --depth 1 --branch ${{env.version}}  https://$GITHUB_ACTOR:$TOKEN@$REPO
+          mkdir $tmpfolder
+      - name: check tmp folder
+        shell: bash
+        run: |
+          if [ -d "$tmpfolder" ]; then
+           echo "tempfolder $tmpfolder must not exist";
+          fi;
+      - name: get templates
+        shell: bash
+        run: |
+          git clone --depth 1 --branch ${{env.version}}  https://$GITHUB_ACTOR:$TOKEN@$REPO $tmpfolder
         env: 
           TOKEN: ${{secrets.WORKFLOW_PAT}}
           REPO: ${{secrets.MAVEN_IMAGE_WORKFLOW_REPO}}
           
       - name: copy templates
+        shell: bash
         run: |
           mkdir tmp
-          cp maven-image-workflow-generator/templates/* tmp
+          cp $tmpfolder/templates/* tmp
+          rm -rf $tmpfolder
           
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
