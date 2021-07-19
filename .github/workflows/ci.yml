@@ -13,15 +13,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: force error
-        run: |
-          mkdir $tmpfolder
       - name: check tmp folder
         shell: bash
         run: |
           if [ -d $tmpfolder ]; then
-            echo "tempfolder $tmpfolder must not exist";
-            exit -1;
+            echo "temp folder $tmpfolder must not exist";
+            exit 1;
           fi;
       - name: get templates
         shell: bash
