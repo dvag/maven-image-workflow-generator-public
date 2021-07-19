@@ -19,7 +19,7 @@ jobs:
       - name: check tmp folder
         shell: bash
         run: |
-          if [ -d "$tmpfolder" ]; then
+          if [ -d $tmpfolder ]; then
            echo "tempfolder $tmpfolder must not exist";
           fi;
       - name: get templates
