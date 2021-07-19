@@ -15,7 +15,6 @@ jobs:
       - name: Run a one-line script
         run: |
           git clone --depth 1 --branch ${{env.version}}  https://$GITHUB_ACTOR:$GH_TOKEN@github.com/dvag/maven-image-workflow-generator.git
-          cp -R templates/ tmp
         env: 
           GH_TOKEN: ${{secrets.WORKFLOW_PAT}}
           
