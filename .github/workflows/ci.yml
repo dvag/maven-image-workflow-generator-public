@@ -37,5 +37,5 @@ jobs:
           cp $tmpfolder/templates/* tmp
           rm -rf $tmpfolder
           
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
+      - name: list templates
+        run: ls -al tmp
