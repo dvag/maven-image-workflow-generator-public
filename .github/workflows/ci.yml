@@ -36,4 +36,4 @@ jobs:
           rm -rf $tmpfolder
           
       - name: list templates
-        run: ls -al tmp
+        run: ls -alR .
