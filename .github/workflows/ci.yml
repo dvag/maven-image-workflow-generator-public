@@ -3,40 +3,47 @@ name: CI
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-    - main
+    inputs:
+      token:
+        description: 'the token used to access the workflow repository'
+        required: true
+      target_folder:
+        description: 'the folder the templates are copied to'
+        required: true
+        default: 'templates'
+      tmp_folder:
+        description: 'a temporary folder used for internal processing, must not exist'
+        required: true
+        default: 'tmp_work'
+
 env:
   version: develop
-  tmpfolder: tmp-folder
+  tmpfolder: ${{ inputs.tmp_folder }}
+
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: check tmp folder
         shell: bash
-        run: |
+        run:
           if [ -d $tmpfolder ]; then
-            echo "temp folder $tmpfolder must not exist";
-            exit 1;
+          echo "output folder $tmpfolder must not exist";
+          exit 1;
           fi;
-      - name: get templates
+      - name: get template
         shell: bash
-        run: |
+        run: templatefolder
           git clone --depth 1 --branch ${{env.version}}  https://$GITHUB_ACTOR:$TOKEN@$REPO $tmpfolder
-        env: 
-          TOKEN: ${{secrets.WORKFLOW_PAT}}
+        env:
+          TOKEN: ${{secrets.WORKFLOW_TOKEN}}
           REPO: ${{secrets.MAVEN_IMAGE_WORKFLOW_REPO}}
-          
+
       - name: copy templates
         shell: bash
         run: |
           mkdir tmp
-          cp $tmpfolder/templates/* tmp
+          cp $tmpfolder/templates/* ${{ inputs.target_folder }}
           rm -rf $tmpfolder
-          echo ${{ fromJSON('{"message": toJSON(github.event.head_commit.message)}') }}
-          
-      - name: list templates
-        run: ls -alR . 
+          ls -alR .
