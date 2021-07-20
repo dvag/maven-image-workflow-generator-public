@@ -3,7 +3,9 @@ name: CI
 
 on:
   workflow_dispatch:
-
+  push:
+    branches:
+    - main
 env:
   version: develop
   tmpfolder: tmp-folder
