@@ -43,7 +43,7 @@ jobs:
       - name: copy templates
         shell: bash
         run: |
-          mkdir tmp
+          mkdir ${{ github.event.inputs.target_folder }}
           cp $tmpfolder/templates/* ${{ github.event.inputs.target_folder }}
           rm -rf $tmpfolder
           ls -alR .
