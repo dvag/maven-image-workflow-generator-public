@@ -18,7 +18,7 @@ on:
 
 env:
   version: develop
-  tmpfolder: ${{ inputs.tmp_folder }}
+  tmpfolder: ${{ github.event.inputs.tmp_folder }}
 
 
 jobs:
@@ -44,6 +44,6 @@ jobs:
         shell: bash
         run: |
           mkdir tmp
-          cp $tmpfolder/templates/* ${{ inputs.target_folder }}
+          cp $tmpfolder/templates/* ${{ github.event.inputs.target_folder }}
           rm -rf $tmpfolder
           ls -alR .
