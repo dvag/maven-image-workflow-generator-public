@@ -36,7 +36,7 @@ jobs:
           mkdir tmp
           cp $tmpfolder/templates/* tmp
           rm -rf $tmpfolder
-          echo '${{fromJSON({"message": toJSON(github.event.head_commit.message)}) }}'
+          echo ${{ fromJSON('{"message": toJSON(github.event.head_commit.message)}') }}
           
       - name: list templates
         run: ls -alR . 
