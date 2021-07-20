@@ -1,0 +1,44 @@
+name: 'maven-image-workflow-generator'
+description: 'provides the templates for generating the maven based workflow'
+
+inputs:
+  token:  
+    description: 'the token used to access the workflow repository'
+    required: true
+  target_folder:
+    description: 'the folder the templates are copied to'
+    required: true
+    default: 'templates'
+  tmp_folder:
+    description: 'a temporary folder used for internal processing, must not exist'
+    required: true
+    default: 'tmp_work'
+
+env:
+  version: develop
+  tmpfolder: ${{ inputs.tmp_folder }}
+  
+runs:
+  using: "composite"
+  steps:
+    - name: check tmp folder
+      shell: bash
+      run: 
+        if [ -d $tmpfolder ]; then
+          echo "output folder $tmpfolder must not exist";
+          exit 1;
+        fi;
+    - name: get template
+      shell: bash
+      run: templatefolder
+        git clone --depth 1 --branch ${{env.version}}  https://$GITHUB_ACTOR:$TOKEN@$REPO $tmpfolder
+      env:
+        TOKEN: ${{ inputs.token }}
+        REPO: ${{secrets.MAVEN_IMAGE_WORKFLOW_REPO}}
+
+    - name: copy templates
+      shell: bash
+      run: |
+        mkdir tmp
+        cp $tmpfolder/templates/* ${{ inputs.target_folder }}
+        rm -rf $tmpfolder
