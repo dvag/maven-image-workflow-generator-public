@@ -34,7 +34,7 @@ jobs:
           fi;
       - name: get template
         shell: bash
-        run: templatefolder
+        run: 
           git clone --depth 1 --branch ${{env.version}}  https://$GITHUB_ACTOR:$TOKEN@$REPO $tmpfolder
         env:
           TOKEN: ${{secrets.WORKFLOW_TOKEN}}
