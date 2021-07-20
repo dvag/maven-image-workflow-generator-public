@@ -37,7 +37,7 @@ jobs:
         run: 
           git clone --depth 1 --branch ${{env.version}}  https://$GITHUB_ACTOR:$TOKEN@$REPO $tmpfolder
         env:
-          TOKEN: ${{secrets.WORKFLOW_TOKEN}}
+          TOKEN: ${{secrets.WORKFLOW_PAT}}
           REPO: ${{secrets.MAVEN_IMAGE_WORKFLOW_REPO}}
 
       - name: copy templates
