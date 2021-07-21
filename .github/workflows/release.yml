@@ -13,7 +13,7 @@ jobs:
         run: echo "released ${{ github.event.client_payload.release.version }}"
       - name: update version
         shell: bash
-        run: "sed -i 's/        REPO_VERSION\:.*$/  version: ${{ github.event.client_payload.release.version }}/' action.yml"
+        run: "sed -i 's/        REPO_VERSION\\:.*$/  version: ${{ github.event.client_payload.release.version }}/' action.yml"
       - name: Commit & Push changes
         uses: actions-js/push@v1.2
         with:
