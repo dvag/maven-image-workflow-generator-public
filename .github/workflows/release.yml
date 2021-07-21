@@ -10,4 +10,4 @@ jobs:
 
     steps:
       - name: show release version
-        run: echo "released ${{ github.event.client_payload.release.version }}
+        run: echo "released ${{ github.event.client_payload.release.version }}"
