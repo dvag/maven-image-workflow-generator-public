@@ -28,5 +28,5 @@ jobs:
         if: github.event.client_payload.release.version != 'develop'
         uses: ncipollo/release-action@v1.8.6
         with:
-          tag: ${{ github.event.client_payload.release.version }}"
+          tag: ${{ github.event.client_payload.release.version }}
           token: ${{ secrets.GITHUB_TOKEN }}
