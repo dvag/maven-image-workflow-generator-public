@@ -21,6 +21,7 @@ jobs:
       - name: Commit & Push changes
         uses: actions-js/push@v1.2
         with:
+          branch: main
           github_token: ${{ secrets.GITHUB_TOKEN }}
           message: "update REPO_VERSION to ${{ github.event.client_payload.release.version }}"
       - name: release
