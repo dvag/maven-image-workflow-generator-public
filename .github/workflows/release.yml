@@ -17,9 +17,7 @@ jobs:
           fetch-depth: 0
       - name: update version
         shell: bash
-        run: "sed -i 's/        REPO_VERSION\\:.*$/  version: ${{ github.event.client_payload.release.version }}/' action.yml"
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
+        run: "sed -i 's/REPO_VERSION\\:.*$/REPO_VERSION: ${{ github.event.client_payload.release.version }}/' action.yml"
       - name: Commit & Push changes
         uses: actions-js/push@v1.2
         with:
