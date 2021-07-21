@@ -41,6 +41,6 @@ runs:
     shell: bash
     run: |
       mkdir ${{ inputs.target_folder }}
-      cp ${{ inputs.tmp_folder }}/templates/* ${{ inputs.target_folder }}
-      rm -rf ${{ inputs.tmp_folder }}
-      ls -alR .
+#      cp ${{ inputs.tmp_folder }}/templates/* ${{ inputs.target_folder }}
+#      rm -rf ${{ inputs.tmp_folder }}
+#      ls -alR .
