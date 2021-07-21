@@ -20,7 +20,14 @@ env:
 runs:
   using: "composite"
   steps:
-  - name: check tmp folder
+  - name: check target_folder folder
+    shell: bash
+    run:
+      if [ -d ${{ inputs.target_folder }} ]; then
+      echo "output folder ${{ inputs.target_folder }} must not exist";
+      exit 1;
+      fi;
+  - name: check tmp_folder folder
     shell: bash
     run:
       if [ -d ${{ inputs.tmp_folder }} ]; then
