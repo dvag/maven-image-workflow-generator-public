@@ -30,9 +30,9 @@ runs:
   - name: get template
     shell: bash
     run: 
-      git clone --depth 1 --branch ${{env.version}}  https://$GITHUB_ACTOR:$TOKEN@github.com/$REPO ${{ inputs.tmp_folder }} 
+      git clone --depth 1 --branch ${{env.version}}  https://$GITHUB_ACTOR:$TOKEN@github.com/$REPO ${{inputs.tmp_folder}} 
     env:
-      TOKEN: ${{ inputs.token }}
+      TOKEN: ${{inputs.token}}
       REPO: dvag/maven-image-workflow-generator
 
   - name: copy templates
