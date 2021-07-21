@@ -11,6 +11,10 @@ jobs:
     steps:
       - name: show release version
         run: echo "released ${{ github.event.client_payload.release.version }}"
+      - name: checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - name: update version
         shell: bash
         run: "sed -i 's/        REPO_VERSION\\:.*$/  version: ${{ github.event.client_payload.release.version }}/' action.yml"
