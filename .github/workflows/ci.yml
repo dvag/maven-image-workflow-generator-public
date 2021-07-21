@@ -25,7 +25,7 @@ jobs:
       shell: bash
       run:
         if [ -d ${{ github.event.input.tmp_folder }} ]; then
-        echo "output folder ${{ input.tmp_folder }} must not exist";
+        echo "output folder ${{ github.event.input.tmp_folder }} must not exist";
         exit 1;
         fi;
     - name: get template
