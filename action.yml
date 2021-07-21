@@ -16,7 +16,7 @@ inputs:
 
 env:
   version: develop
-  tmpfolder: ${{ inputs.tmp_folder }}
+  tmpfolder: xxx
   
 runs:
   using: "composite"
@@ -24,14 +24,14 @@ runs:
   - name: check tmp folder
     shell: bash
     run:
-      if [ -d $tmpfolder ]; then
-      echo "output folder $tmpfolder must not exist";
+      if [ -d ${{ inputs.tmp_folder }} ]; then
+      echo "output folder ${{ inputs.tmp_folder }} must not exist";
       exit 1;
       fi;
   - name: get template
     shell: bash
     run: 
-      git clone --depth 1 --branch ${{env.version}}  https://$GITHUB_ACTOR:$TOKEN@$REPO $tmpfolder
+      git clone --depth 1 --branch ${{env.version}}  https://$GITHUB_ACTOR:$TOKEN@$REPO ${{ inputs.tmp_folder }}
     env:
       TOKEN: ${{ inputs.token }}
       REPO: ${{secrets.MAVEN_IMAGE_WORKFLOW_REPO}}
@@ -40,6 +40,6 @@ runs:
     shell: bash
     run: |
       mkdir ${{ inputs.target_folder }}
-      cp $tmpfolder/templates/* ${{ inputs.target_folder }}
-      rm -rf $tmpfolder
+      cp ${{ inputs.tmp_folder }}/templates/* ${{ inputs.target_folder }}
+      rm -rf ${{ inputs.tmp_folder }}
       ls -alR .
