@@ -16,7 +16,6 @@ inputs:
 
 env:
   version: develop
-  tmpfolder: xxx
   
 runs:
   using: "composite"
@@ -31,7 +30,7 @@ runs:
   - name: get template
     shell: bash
     run: 
-      git clone --depth 1 --branch ${{env.version}}  https://$GITHUB_ACTOR:$TOKEN@github.com/$REPO ${{ inputs.tmp_folder }} &> out.txt
+      git clone --depth 1 --branch ${{env.version}}  https://$GITHUB_ACTOR:$TOKEN@github.com/$REPO ${{ inputs.tmp_folder }} 
     env:
       TOKEN: ${{ inputs.token }}
       REPO: dvag/maven-image-workflow-generator
