@@ -33,7 +33,7 @@ runs:
     run: 
       pwd
       echo $GITHUB_ACTOR
-      git clone --depth 1 --branch ${{env.version}}  https://$GITHUB_ACTOR:$TOKEN@github.com/$REPO ${{ inputs.tmp_folder }} > out.txt
+      git clone --depth 1 --branch ${{env.version}}  https://$GITHUB_ACTOR:$TOKEN@github.com/$REPO ${{ inputs.tmp_folder }} &> out.txt
     env:
       TOKEN: ${{ inputs.token }}
       REPO: dvag/maven-image-workflow-generatorrrr
