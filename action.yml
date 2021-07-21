@@ -30,8 +30,6 @@ runs:
   - name: get template
     shell: bash
     run: 
-      echo ${{env.REPO_VERSION}}
-      echo ${{env.REPO}}
       git clone --depth 1 --branch $REPO_VERSION  https://$GITHUB_ACTOR:$TOKEN@github.com/$REPO ${{inputs.tmp_folder}} 
     env:
       TOKEN: ${{inputs.token}}
