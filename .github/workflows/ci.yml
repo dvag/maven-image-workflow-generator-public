@@ -31,11 +31,10 @@ jobs:
     - name: get template
       shell: bash
       run: |
-        pwd
         git clone --depth 1 --branch ${{env.version}}  https://$GITHUB_ACTOR:$TOKEN@github.com/$REPO ${{ github.event.inputs.tmp_folder }}
       env:
         TOKEN: ${{ secrets.WORKFLOW_PAT }}
-        REPO: dvag/maven-image-workflow-generatorrr
+        REPO: dvag/maven-image-workflow-generator
 
     - name: copy templates
       shell: bash
