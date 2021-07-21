@@ -1,0 +1,13 @@
+name: release-trigger
+
+on:
+  repository_dispatch:
+    types: [release_wrapper]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: show release version
+        run: echo "released ${{ github.event.client_payload.release.version }}
