@@ -29,7 +29,9 @@ runs:
       fi;
   - name: get template
     shell: bash
-    run: echo "git clone --depth 1 --branch ${{env.version}} https://${{github.actor}}:${{github.actor}}:@github.com/$REPO ${{inputs.tmp_folder}} "
+    run: 
+      echo ${{env.version}}
+      echo ${{env.REPO}}
       git clone --depth 1 --branch ${{env.version}}  https://$GITHUB_ACTOR:$TOKEN@github.com/$REPO ${{inputs.tmp_folder}} 
     env:
       TOKEN: ${{inputs.token}}
