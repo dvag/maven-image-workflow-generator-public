@@ -5,9 +5,6 @@ inputs:
   token:
     description: 'the token used to access the workflow repository'
     required: true
-  repo:
-    description: 'the repository to retrieve the templates from'
-    required: true
   target_folder:
     description: 'the folder the templates are copied to'
     required: true
@@ -37,7 +34,7 @@ runs:
       git clone --depth 1 --branch ${{env.version}}  https://$GITHUB_ACTOR:$TOKEN@$REPO ${{ inputs.tmp_folder }}
     env:
       TOKEN: ${{ inputs.token }}
-      REPO: ${{secrets.MAVEN_IMAGE_WORKFLOW_REPO}}
+      REPO: dvag/maven-image-workflow-generator
 
   - name: copy templates
     shell: bash
