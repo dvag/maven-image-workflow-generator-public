@@ -41,5 +41,5 @@ jobs:
       run: |
         mkdir ${{ github.event.inputs.target_folder }}
         cp ${{ github.event.inputs.tmp_folder }}/templates/* ${{ github.event.inputs.target_folder }}
-        rm -rf ${{ github.events.input.tmp_folder }}
+        rm -rf ${{ github.event.inputs.tmp_folder }}
         ls -alR .
