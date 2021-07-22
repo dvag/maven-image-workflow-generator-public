@@ -13,15 +13,18 @@ on:
         required: true
         default: 'tmp_work'
 
-env:
-  version: develop
-  tmpfolder: xxx
-
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: check tmp folder
+    - name: check target_folder folder
+      shell: bash
+      run:
+        if [ -d ${{ github.event.inputs.target_folder }} ]; then
+        echo "output folder ${{ github.event.inputs.target_folder }} must not exist";
+        exit 1;
+        fi;
+    - name: check tmp_folder folder
       shell: bash
       run:
         if [ -d ${{ github.event.inputs.tmp_folder }} ]; then
@@ -30,16 +33,10 @@ jobs:
         fi;
     - name: get template
       shell: bash
-      run: |
-        git clone --depth 1 --branch ${{env.version}}  https://$GITHUB_ACTOR:$TOKEN@github.com/$REPO ${{ github.event.inputs.tmp_folder }}
+      run: 
+        git clone --depth 1 --branch $REPO_VERSION  https://$GITHUB_ACTOR:$TOKEN@github.com/$REPO ${{github.event.inputs.tmp_folder}} 
       env:
         TOKEN: ${{ secrets.WORKFLOW_PAT }}
         REPO: dvag/maven-image-workflow-generator
+        REPO_VERSION: v0.0.3
 
-    - name: copy templates
-      shell: bash
-      run: |
-        mkdir ${{ github.event.inputs.target_folder }}
-        cp ${{ github.event.inputs.tmp_folder }}/templates/* ${{ github.event.inputs.target_folder }}
-        rm -rf ${{ github.event.inputs.tmp_folder }}
-        ls -alR .
