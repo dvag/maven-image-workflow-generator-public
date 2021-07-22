@@ -40,7 +40,7 @@ runs:
   - name: get template
     shell: bash
     run: 
-      git clone --depth 1 --branch $REPO_VERSION  https://$GITHUB_ACTOR:$TOKEN@github.com/$REPO ${{inputs.tmp_folder}}
+      git clone --depth 1 --branch $REPO_VERSION -c advice.detachedHead=false https://$GITHUB_ACTOR:$TOKEN@github.com/$REPO ${{inputs.tmp_folder}}
     env:
       TOKEN: ${{inputs.token}}
       REPO: dvag/maven-image-workflow-generator
