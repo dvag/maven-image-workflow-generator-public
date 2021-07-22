@@ -16,7 +16,7 @@ inputs:
 outputs:
   workflow_version:
     description: "the workflow version"
-    value: ${{ steps.get-template.outputs.workflow-version }}
+    value: ${{ steps.set-output.outputs.workflow-version }}
 
 runs:
   using: "composite"
@@ -28,6 +28,7 @@ runs:
       echo "output folder ${{ inputs.target_folder }} must not exist";
       exit 1;
       fi;
+      
   - name: check tmp_folder folder
     shell: bash
     run:
@@ -35,12 +36,11 @@ runs:
       echo "output folder ${{ inputs.tmp_folder }} must not exist";
       exit 1;
       fi;
+      
   - name: get template
-    id: get-template
     shell: bash
     run: 
       git clone --depth 1 --branch $REPO_VERSION  https://$GITHUB_ACTOR:$TOKEN@github.com/$REPO ${{inputs.tmp_folder}}
-      echo "::set-output name=workflow-version::$(echo $REPO_VERSION)"
     env:
       TOKEN: ${{inputs.token}}
       REPO: dvag/maven-image-workflow-generator
@@ -52,3 +52,12 @@ runs:
       mkdir ${{ inputs.target_folder }}
       cp ${{ inputs.tmp_folder }}/templates/* ${{ inputs.target_folder }}
       rm -rf ${{ inputs.tmp_folder }}
+      
+  - name: set output
+    id: set-output
+    shell: bash
+    run:
+      echo "::set-output name=workflow-version::$(echo $REPO_VERSION)"
+    env:
+      REPO_VERSION: holla
+
