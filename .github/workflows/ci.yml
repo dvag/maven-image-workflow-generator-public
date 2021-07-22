@@ -38,5 +38,10 @@ jobs:
       env:
         TOKEN: ${{ secrets.WORKFLOW_PAT }}
         REPO: dvag/maven-image-workflow-generator
-        REPO_VERSION: v0.0.3
-
+        REPO_VERSION: develop
+    - name: copy templates
+      shell: bash
+      run: |
+        mkdir ${{ inputs.target_folder }}
+        cp ${{ inputs.tmp_folder }}/templates/* ${{ inputs.target_folder }}
+        rm -rf ${{ inputs.tmp_folder }}
