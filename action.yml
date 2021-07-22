@@ -14,9 +14,6 @@ inputs:
     required: true
     default: 'tmp_work'
 
-env:
-  version: develop
-  
 runs:
   using: "composite"
   steps:
