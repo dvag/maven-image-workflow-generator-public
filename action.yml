@@ -13,6 +13,10 @@ inputs:
     description: 'a temporary folder used for internal processing, must not exist'
     required: true
     default: 'tmp_work'
+outputs:
+  workflow_version:
+    description: "the workflow version"
+    value: ${{ steps.get-template.outputs.workflow-version }}
 
 runs:
   using: "composite"
@@ -32,9 +36,11 @@ runs:
       exit 1;
       fi;
   - name: get template
+    id: get-template
     shell: bash
     run: 
-      git clone --depth 1 --branch $REPO_VERSION  https://$GITHUB_ACTOR:$TOKEN@github.com/$REPO ${{inputs.tmp_folder}} 
+      git clone --depth 1 --branch $REPO_VERSION  https://$GITHUB_ACTOR:$TOKEN@github.com/$REPO ${{inputs.tmp_folder}}
+      echo "::set-output name=workflow-version::$(echo $REPO_VERSION)"
     env:
       TOKEN: ${{inputs.token}}
       REPO: dvag/maven-image-workflow-generator
