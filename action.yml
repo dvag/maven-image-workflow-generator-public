@@ -13,6 +13,10 @@ inputs:
     description: 'a temporary folder used for internal processing, must not exist'
     required: true
     default: 'tmp_work'
+  github_folder:
+    description: 'the path of the .github folder'
+    required: true
+    default: '.github'
 outputs:
   workflow_version:
     description: "the workflow version"
@@ -50,7 +54,10 @@ runs:
     shell: bash
     run: |
       mkdir ${{ inputs.target_folder }}
-      cp ${{ inputs.tmp_folder }}/templates/* ${{ inputs.target_folder }}
+      find ${{ inputs.tmp_folder }}/templates -maxdepth 1 -type f | xargs -I {} cp -v {} ${{ inputs.target_folder }};
+      if [ ! -d ${{ inputs.github_folder }}/data ]; then
+        cp -R ${{ inputs.target_folder }}/data ${{ inputs.github_folder }};
+      fi;
       rm -rf ${{ inputs.tmp_folder }}
       
   - name: set output
