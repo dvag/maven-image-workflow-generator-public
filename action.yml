@@ -66,6 +66,7 @@ runs:
       rm -rf $TMP_FOLDER
     env:
       TMP_FOLDER: ${{ inputs.tmp_folder }}
+      SOURCE_FOLDER: ${{ inputs.source_folder }}
       TARGET_FOLDER: ${{ inputs.target_folder }}
       
   - name: set output
