@@ -12,7 +12,7 @@ jobs:
       - name: show release version
         run: echo "released ${{ github.event.client_payload.release.version }}"
       - name: checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
       - name: update version
